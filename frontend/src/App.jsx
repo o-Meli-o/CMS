@@ -1,11 +1,26 @@
-import React from 'react'
+import React from "react";
+import { useRoutes } from "react-router-dom";
+import Sidebar from "./Components/Sidebar/Sidebar";
+import Header from "./Components/Header/Header";
+import routes from "./routes";
+import "./App.css"
+
 
 const App = () => {
-  return (
-    <div>
-      Hello
-    </div>
-  )
-}
 
-export default App
+  const router = useRoutes(routes);
+
+  return (
+    <>
+      <Sidebar />
+
+      <div className="main">
+        <Header />
+        {router}
+
+      </div>
+    </>
+  );
+};
+
+export default App;

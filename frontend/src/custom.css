@@ -5,10 +5,12 @@
     --white-50: #f0f0f0;
     --orange: #f29f67;
     --dark: #1e1e2c;
+    --orange-dark: #dd864c;
 }
 
 body{
     background-color: var(--white-50);
+    display: flex;
 }
 
 *, body, html{
