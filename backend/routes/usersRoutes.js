@@ -1,5 +1,5 @@
 const express = require("express");
-const MeliAdminDB = require("./../db/MeliAdmin");
+const SabzLearnShopDB = require("./../db/SabzLearnShop");
 
 const usersRouter = express.Router();
 
@@ -8,7 +8,7 @@ const usersRouter = express.Router();
 usersRouter.get("/", (req, res) => {
   let selectAllUsersQuery = `SELECT * FROM Users`;
 
-  MeliAdminDB.query(selectAllUsersQuery, (err, result) => {
+  SabzLearnShopDB.query(selectAllUsersQuery, (err, result) => {
     if (err) {
       res.send(null);
     } else {
@@ -22,7 +22,7 @@ usersRouter.delete("/:userID", (req, res) => {
 
   let deleteUserQuery = `DELETE FROM Users WHERE id = ${userID}`;
 
-  MeliAdminDB.query(deleteUserQuery, (err, result) => {
+  SabzLearnShopDB.query(deleteUserQuery, (err, result) => {
     if (err) {
       res.send(null);
     } else {
@@ -37,7 +37,7 @@ usersRouter.put("/:userID", (req, res) => {
 
   let editUserQuery = `UPDATE Users SET firsname="${body.firsname}", lastname="${body.lastname}", username="${body.username}", password="${body.password}", phone=${body.phone}, city="${body.city}", email="${body.email}", address="${body.address}" ,score=${body.score}, buy=${body.buy} WHERE id = ${userID}`;
 
-  MeliAdminDB.query(editUserQuery, (err, result) => {
+  SabzLearnShopDB.query(editUserQuery, (err, result) => {
     if (err) {
       res.send(null);
     } else {

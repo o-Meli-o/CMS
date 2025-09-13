@@ -50,6 +50,7 @@ const ProductsTable = () => {
   // end of mui
   const [allProducts, setAllProducts] = useState([]);
 
+  /*
   useEffect(() => {
     fetch("http://localhost:8000/api/products/")
     .then((res) => { console.log(res);
@@ -57,6 +58,7 @@ const ProductsTable = () => {
     .then((products) => setAllProducts(products));
     console.log(allProducts);
   },[]);
+  */
 
   /* <table className='products-table'>
         <tr className='products-table-heading-tr'>
@@ -81,10 +83,10 @@ const ProductsTable = () => {
     </table> */
   return (
     <>
-      <TableContainer component={Paper}>
+      <TableContainer className="table-container" component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
-          <TableHead>
-            <TableRow>
+          <TableHead className="table-head">
+            <TableRow className="table-head-row">
               <StyledTableCell>Dessert (100g serving)</StyledTableCell>
               <StyledTableCell align="right">Calories</StyledTableCell>
               <StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>

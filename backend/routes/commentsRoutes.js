@@ -1,5 +1,5 @@
 const express = require("express");
-const MeliAdminDB = require("./../db/MeliAdmin");
+const SabzLearnShopDB = require("./../db/SabzLearnShop");
 
 const commentsRouter = express.Router();
 
@@ -8,7 +8,7 @@ const commentsRouter = express.Router();
 commentsRouter.get("/", (req, res) => {
   let selectAllCommentsQuery = `SELECT Comments.id, Comments.isAccept , Comments.body, Comments.date, Comments.hour, Users.firsname as userID, Products.title as productID FROM Comments INNER JOIN Users ON Users.id = Comments.userID INNER JOIN Products ON Products.id = Comments.productID`;
 
-  MeliAdminDB.query(selectAllCommentsQuery, (err, result) => {
+  SabzLearnShopDB.query(selectAllCommentsQuery, (err, result) => {
     if (err) {
       res.send(null);
     } else {
@@ -21,7 +21,7 @@ commentsRouter.delete("/:commentID", (req, res) => {
   let commentID = req.params.commentID;
 
   let deleteCommentQuery = `DELETE FROM Comments WHERE id = ${commentID}`;
-  MeliAdminDB.query(deleteCommentQuery, (err, result) => {
+  SabzLearnShopDB.query(deleteCommentQuery, (err, result) => {
     if (err) {
       res.send(null);
     } else {
@@ -34,7 +34,7 @@ commentsRouter.put("/:commentID", (req, res) => {
   let commentID = req.params.commentID;
   let editCommentQuery = `UPDATE Comments SET body="${req.body.body}" WHERE id = ${commentID}`;
 
-  MeliAdminDB.query(editCommentQuery, (err, result) => {
+  SabzLearnShopDB.query(editCommentQuery, (err, result) => {
     if (err) {
       res.send(null);
     } else {

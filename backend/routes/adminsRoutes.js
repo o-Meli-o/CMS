@@ -1,5 +1,5 @@
 const express = require("express");
-const MeliAdminDB = require("./../db/MeliAdmin");
+const SabzLearnShopDB = require("./../db/SabzLearnShop");
 
 const adminsRouter = express.Router();
 
@@ -10,7 +10,7 @@ adminsRouter.get("/", (req, res) => {
 
   let selectMainAdminQuery = `SELECT * FROM Admins WHERE token = "${adminToken}"`;
 
-  MeliAdminDB.query(selectMainAdminQuery, (err, result) => {
+  SabzLearnShopDB.query(selectMainAdminQuery, (err, result) => {
     if (err) {
       res.send(null);
     } else {
