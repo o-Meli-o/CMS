@@ -11,7 +11,7 @@ import { AiOutlinePercentage } from "react-icons/ai";
 const Sidebar = () => {
   return (
     <div className='sidebar'>
-        <h1 className='sidebar-title'>ProAdmin</h1>
+        <h1 className='sidebar-title'>MeliAdmin</h1>
 
         <ul className='sidebar-links'>
             <li className='active'>
