@@ -15,7 +15,7 @@ const Sidebar = () => {
 
         <ul className='sidebar-links'>
             <li className='active'>
-                <Link to="/products"><FiHome className='icon'/>Dashboard</Link>
+                <Link to="/"><FiHome className='icon'/>Home</Link>
             </li>
             <li><Link to="/products"><AiOutlineProduct className='icon'/>Products</Link></li>
             <li><Link to="/comments"><GoComment className='icon'/>Comments</Link></li>

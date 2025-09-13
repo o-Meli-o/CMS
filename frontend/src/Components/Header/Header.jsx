@@ -10,7 +10,7 @@ const Header = () => {
       <div className='admin-profile'>
         <img src="/img/Meli.jpg" alt="Admin Profile" />
         <div>
-          <h1>Melika Hejranfar</h1>
+          <h1>Meli</h1>
           <h3>Frontend Developer</h3>
         </div>
       </div>
