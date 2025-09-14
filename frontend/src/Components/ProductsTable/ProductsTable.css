@@ -2,6 +2,22 @@
     margin-top: 20px;
 }
 
-.css-y2ff7i-MuiPaper-root-MuiTableContainer-root{
-    color: var(--orange);
+.css-1a7iywq-MuiTableHead-root{
+    background-color: rgba(242, 159, 103, .5);
+}
+
+.products-table-btn{
+    margin: 0px 5px;
+    background-color: var(--orange);
+    border: none;
+    border-radius: 5px;
+    color: var(--white);
+    padding: 7px 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: ease 0.3s;
+}
+.products-table-btn:hover{
+    background-color: var(--orange-dark);
 }
