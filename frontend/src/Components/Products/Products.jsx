@@ -6,9 +6,10 @@ import ProductsTable from "../ProductsTable/ProductsTable";
 const Products = () => {
   return (
     <>
+    <ProductsTable/>
       <AddNewProduct />
       <ErrorBox message="No Products Found!" />
-      <ProductsTable/>
+      
     </>
   );
 };

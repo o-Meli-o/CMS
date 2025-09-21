@@ -41,6 +41,20 @@
     object-fit: cover;
 }
 */
+
+.product-title{
+    font-size: 1.2rem;
+    color: var(--dark);
+    margin-left: 10px;
+    font-weight: 500;
+    margin-top: 20px;
+}
+
+td img{
+    width: 80px;
+    border-radius: 5px;
+}
+
 .products-table-btn{
     margin: 0px 5px;
     background-color: var(--orange);

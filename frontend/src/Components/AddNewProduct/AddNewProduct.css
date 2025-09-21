@@ -44,6 +44,11 @@
     font-weight: 500;
     width: 100%;
 }
+.add-products-input:focus{
+    outline: none;
+    border: none;
+    background: unset;
+}
 
 .add-products-submit{
     background-color: var(--orange);

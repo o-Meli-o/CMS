@@ -1,0 +1,19 @@
+.edit-form-wrap{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 15px;
+}
+
+.edit-form-label{
+    font-weight: 500;
+}
+
+.edit-form-wrap input, textarea{
+    background-color: rgba(242, 159, 103, .4) !important;
+    outline: none !important;
+    border: none !important;
+}
+.edit-form-wrap textarea:focus, input:focus{
+    background-color: rgba(242, 159, 103, .4);
+}

@@ -1,6 +1,8 @@
 //import React from "react";
 import "./ProductsTable.css";
 import { useEffect, useState } from "react";
+import DeleteModal from "../DeleteModal/DeleteModal";
+
 // mui imports:
 import * as React from "react";
 import Paper from "@mui/material/Paper";
@@ -11,12 +13,21 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import Button from "@mui/material/Button";
+import DetailsModal from "../DetailsModal/DetailsModal";
+import EditModal from "../EditModal/EditModal";
 // end of mui imports
 
 const ProductsTable = () => {
   // mui :
   const columns = [
-    { id: "name", label: "Name", minWidth: 170 },
+    { id: "image", label: "Image", minWidth: 150, align: "center" },
+    { id: "name", label: "Name", minWidth: 150, align: "center" },
+    { id: "price", label: "Price", minWidth: 150, align: "center" },
+    { id: "stock", label: "Stock", minWidth: 150, align: "center" },
+    { id: "actions", label: "Actions", minWidth: 150, align: "center" },
+
+    /*
     { id: "code", label: "ISO\u00a0Code", minWidth: 100 },
     {
       id: "population",
@@ -39,32 +50,88 @@ const ProductsTable = () => {
       align: "right",
       format: (value) => value.toFixed(2),
     },
+    */
   ];
 
-  function createData(name, code, population, size) {
-    const density = population / size;
-    return { name, code, population, size, density };
+  function createData(image, name, price, stock, actions) {
+    //const density = population / size;
+    return { image, name, price, stock, actions };
   }
 
   const rows = [
-    createData("India", "IN", 1324171354, 3287263),
-    createData("China", "CN", 1403500365, 9596961),
-    createData("Italy", "IT", 60483973, 301340),
-    createData("United States", "US", 327167434, 9833520),
-    createData("Canada", "CA", 37602103, 9984670),
-    createData("Australia", "AU", 25475400, 7692024),
-    createData("Germany", "DE", 83019200, 357578),
-    createData("Ireland", "IE", 4857000, 70273),
-    createData("Mexico", "MX", 126577691, 1972550),
-    createData("Japan", "JP", 126317000, 377973),
-    createData("France", "FR", 67022000, 640679),
-    createData("United Kingdom", "GB", 67545757, 242495),
-    createData("Russia", "RU", 146793744, 17098246),
-    createData("Nigeria", "NG", 200962417, 923768),
-    createData("Brazil", "BR", 210147125, 8515767),
+    createData(
+      <img src="./img/Meli.jpg" alt="" />,
+      "India",
+      1324171354,
+      3287263
+    ),
+    createData(
+      <img src="./img/Meli.jpg" alt="" />,
+      "China",
+      1403500365,
+      9596961
+    ),
+    createData(<img src="./img/Meli.jpg" alt="" />, "Italy", 60483973, 301340),
+    createData(
+      <img src="./img/Meli.jpg" alt="" />,
+      "United States",
+      327167434,
+      9833520
+    ),
+    createData(
+      <img src="./img/Meli.jpg" alt="" />,
+      "Canada",
+      37602103,
+      9984670
+    ),
+    createData(
+      <img src="./img/Meli.jpg" alt="" />,
+      "Australia",
+      25475400,
+      7692024
+    ),
+    createData(
+      <img src="./img/Meli.jpg" alt="" />,
+      "Germany",
+      83019200,
+      357578
+    ),
+    createData(<img src="./img/Meli.jpg" alt="" />, "Ireland", 4857000, 70273),
+    createData(
+      <img src="./img/Meli.jpg" alt="" />,
+      "Mexico",
+      126577691,
+      1972550
+    ),
+    createData(<img src="./img/Meli.jpg" alt="" />, "Japan", 126317000, 377973),
+    createData(<img src="./img/Meli.jpg" alt="" />, "France", 67022000, 640679),
+    createData(
+      <img src="./img/Meli.jpg" alt="" />,
+      "United Kingdom",
+      67545757,
+      242495
+    ),
+    createData(
+      <img src="./img/Meli.jpg" alt="" />,
+      "Russia",
+      146793744,
+      17098246
+    ),
+    createData(
+      <img src="./img/Meli.jpg" alt="" />,
+      "Nigeria",
+      200962417,
+      923768
+    ),
+    createData(
+      <img src="./img/Meli.jpg" alt="" />,
+      "Brazil",
+      210147125,
+      8515767
+    ),
   ];
 
-   const [page, setPage] = React.useState(0);
+  const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const handleChangePage = (event, newPage) => {
@@ -76,7 +143,9 @@ const ProductsTable = () => {
     setPage(0);
   };
   // end of mui
+
   const [allProducts, setAllProducts] = useState([]);
+  //const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   /*
   useEffect(() => {
@@ -114,56 +183,88 @@ const ProductsTable = () => {
           </td>
         </tr>
       </table> */
-  return <>
-    <Paper sx={{ width: '100%', overflow: 'hidden' , marginTop: '20px' , borderRadius: '15px'}}>
-      <TableContainer sx={{ maxHeight: 440 }}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead >
-            <TableRow >
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth , fontWeight: 'bold' , backgroundColor: '#F5B488'}}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell key={column.id} align={column.align}>
-                          {column.format && typeof value === 'number'
-                            ? column.format(value)
-                            : value}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-    </Paper>
-    </>;
+  return (
+    <>
+      <h1 className="product-title">Products:</h1>
+      <div className="table-container">
+        <Paper
+          sx={{
+            width: "100%",
+            overflow: "hidden",
+            marginTop: "20px",
+            borderRadius: "15px",          }}
+        >
+          <TableContainer sx={{ maxHeight: 440 }}>
+            <Table stickyHeader aria-label="sticky table">
+              <TableHead>
+                <TableRow>
+                  {columns.map((column) => (
+                    <TableCell
+                      key={column.id}
+                      align={column.align}
+                      style={{
+                        minWidth: column.minWidth,
+                        fontWeight: "bold",
+                        backgroundColor: "#F5B488",
+                      }}
+                    >
+                      {column.label}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row) => {
+                    return (
+                      <TableRow
+                        hover
+                        role="checkbox"
+                        tabIndex={-1}
+                        key={row.code}
+                      >
+                        {columns.map((column) => {
+                          if (column.id === "actions") {
+                            return (
+                              <TableCell key={column.id} align="center">
+                                
+                                <DetailsModal/>
+                                <EditModal/>
+                                <DeleteModal/>
+                                
+                              </TableCell>
+                            );
+                          }
+
+                          const value = row[column.id];
+                          return (
+                            <TableCell key={column.id} align={column.align}>
+                              {column.format && typeof value === "number"
+                                ? column.format(value)
+                                : value}
+                            </TableCell>
+                          );
+                        })}
+                      </TableRow>
+                    );
+                  })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[10, 25, 100]}
+            component="div"
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Paper>
+      </div>
+    </>
+  );
 };
 
 export default ProductsTable;

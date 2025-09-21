@@ -1,0 +1,41 @@
+.products-table-btn{
+    margin: 0px 5px;
+    background-color: var(--orange);
+    border: none;
+    border-radius: 5px;
+    color: var(--white);
+    padding: 7px 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: ease 0.3s;
+}
+.products-table-btn:hover{
+    background-color: var(--orange-dark);
+}
+
+.primary-btn{
+     background-color: var(--orange);
+    border: none;
+    color: var(--white);
+    font-weight: 500;
+    padding: 7px 12px;
+}
+.primary-btn:hover{
+    background-color: var(--orange-dark);
+    color: var(--dark);
+    font-weight: 500;
+}
+.primary-btn:active{
+    background-color: var(--orange-dark) !important;
+    font-weight: 500;
+}
+
+.secondary-btn{
+    color: var(--white);
+    font-weight: 500;
+}
+.secondary-btn:hover{
+    color: var(--dark);
+    font-weight: 500;
+}

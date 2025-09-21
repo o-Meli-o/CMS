@@ -43,3 +43,9 @@
 .icon{
     padding-right: 10px;
 }
+
+
+svg {
+    width: 2em !important;
+    height: 1em !important;
+}

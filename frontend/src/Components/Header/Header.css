@@ -55,6 +55,11 @@
     font-size: 1.1rem;
     padding: 10px 10px 10px 20px;
 }
+.search-box input:focus{
+    outline: none;
+    border: none;
+    background: unset;
+}
 
 .search-box button{
     display: flex;
@@ -63,7 +68,7 @@
     border-radius: 12px;
     background-color: var(--orange);
     color: var(--white);
-    padding: 12px;
+    padding: 13px;
     cursor: pointer;
     transition: ease 0.3s;
 }

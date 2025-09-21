@@ -1,0 +1,25 @@
+.details-modal-body{
+    display: flex;
+    justify-content: center;
+}
+
+.details-table{
+    background-color: var(--white-50);
+    border-radius: 10px;
+    width: 90%;
+    overflow: hidden;
+    table-layout: fixed;
+    /* word-wrap: break-word; */
+}
+
+.details-table td{
+    text-align: center;
+    vertical-align: middle;
+    padding: 20px;
+}
+
+.details-table thead td{
+    background-color: var(--dark);
+    color: var(--white-50);
+    font-weight: 400;
+}
