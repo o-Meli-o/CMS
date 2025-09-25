@@ -7,7 +7,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 // End of React Bootstrap imports
 
-const DetailsModal = () => {
+const DetailsModal = ({product}) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -46,13 +46,13 @@ const DetailsModal = () => {
             </thead>
             <tbody>
                 <tr>
-                <td><img src="./img/Meli.jpg" alt="" /></td>
-                <td>Name</td>
-                <td>Price</td>
-                <td>Stock</td>
-                <td>Sold</td>
-                <td>Popularity</td>
-                <td>Colors</td>
+                <td><img src={`https://raw.githubusercontent.com/o-Meli-o/CMS/main/frontend/public/img/${product.image}`} alt={product.name} /></td>
+                <td>{product.name}</td>
+                <td>{product.price}</td>
+                <td>{product.stock}</td>
+                <td>{product.sold}</td>
+                <td>{product.popularity}</td>
+                <td>{product.colors}</td>
               </tr>
             </tbody>
           </table>

@@ -2,6 +2,7 @@
 import "./ProductsTable.css";
 import { useEffect, useState } from "react";
 import DeleteModal from "../DeleteModal/DeleteModal";
+import ErrorBox from "../ErrorBox/ErrorBox";
 
 // mui imports:
 import * as React from "react";
@@ -50,14 +51,111 @@ const ProductsTable = () => {
       align: "right",
       format: (value) => value.toFixed(2),
     },
-    */
+*/
   ];
+  const [allProducts, setAllProducts] = useState([]);
+
+  /*
+  useEffect(async () => {
+    await fetch("https://meliadmin-cms-default-rtdb.firebaseio.com/products.json")
+      .then((res) => res.json())
+      .then((products) => { console.log("Fetched products: ", Object.entries(products));
+        setAllProducts(Object.entries(products))});
+        //.catch((err) => console.error("Fetch error: ", err));
+  }, []);
+  */
+
+useEffect(() => {
+  const fetchProducts = async () => {
+    try {
+      const res = await fetch(
+        "https://meliadmin-cms-default-rtdb.firebaseio.com/products.json"
+      );
+      const products = await res.json();
+
+      if (products) {
+        // Convert Firebase object into an array
+        const entries = Object.entries(products).map(([id, product]) => ({
+          id,          // Firebase unique key
+          ...product,  // spread all fields (image, name, price, stock, sold, popularity, colors, etc.)
+        }));
+
+        setAllProducts(entries);
+        console.log("All Products:", entries);
+      } else {
+        setAllProducts([]); // in case products is null
+      }
+    } catch (err) {
+      console.error("Error fetching products:", err);
+    }
+  };
+
+  fetchProducts();
+}, []);
+
+
+const getAllProducts = async () => {
+    try {
+      const res = await fetch(
+        "https://meliadmin-cms-default-rtdb.firebaseio.com/products.json"
+      );
+      const products = await res.json();
+
+      if (products) {
+        // Convert Firebase object into an array
+        const entries = Object.entries(products).map(([id, product]) => ({
+          id,          // Firebase unique key
+          ...product,  // spread all fields (image, name, price, stock, sold, popularity, colors, etc.)
+        }));
+
+        setAllProducts(entries);
+        console.log("All Products:", entries);
+      } else {
+        setAllProducts([]); // in case products is null
+      }
+    } catch (err) {
+      console.error("Error fetching products:", err);
+    }
+  };
+
+
 
   function createData(image, name, price, stock, actions) {
     //const density = population / size;
     return { image, name, price, stock, actions };
   }
 
+  const rows = allProducts.map((product) => ({
+  image: <img src={`https://raw.githubusercontent.com/o-Meli-o/CMS/main/frontend/public/img/${product.image}`} alt={product.name} width="50" />,
+  name: product.name,
+  price: product.price,
+  stock: product.stock,
+  actions: (
+    <>
+      <DetailsModal product={product}/>
+        <EditModal product={product} update={getAllProducts}/>
+        <DeleteModal product={product} update={getAllProducts}/>
+    </>
+  ),
+}));
+
+/*
+  const rows = allProducts.map((product) => ({
+    image: product[1].image,
+    name: product[1].name,
+    price: product[1].price,
+    stock: product[1].stock,
+    actions: (
+      <>
+        <DetailsModal />
+        <EditModal />
+        <DeleteModal />
+      </>
+    ),
+  }));
+  */
+
+  /*
   const rows = [
     createData(
       <img src="./img/Meli.jpg" alt="" />,
@@ -130,6 +228,7 @@ const ProductsTable = () => {
       8515767
     ),
   ];
+*/
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -144,18 +243,7 @@ const ProductsTable = () => {
   };
   // end of mui
 
-  const [allProducts, setAllProducts] = useState([]);
   //const [showDeleteModal, setShowDeleteModal] = useState(false);
-
-  /*
-  useEffect(() => {
-    fetch("http://localhost:8000/api/products/")
-    .then((res) => { console.log(res);
-        res.json();})
-    .then((products) => setAllProducts(products));
-    console.log(allProducts);
-  },[]);
-  */
 
   /* <table className="products-table">
         <tr className="products-table-heading-tr">
@@ -185,86 +273,96 @@ const ProductsTable = () => {
       </table> */
   return (
     <>
-      <h1 className="product-title">Products:</h1>
-      <div className="table-container">
-        <Paper
-          sx={{
-            width: "100%",
-            overflow: "hidden",
-            marginTop: "20px",
-            borderRadius: "15px",          }}
-        >
-          <TableContainer sx={{ maxHeight: 440 }}>
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead>
-                <TableRow>
-                  {columns.map((column) => (
-                    <TableCell
-                      key={column.id}
-                      align={column.align}
-                      style={{
-                        minWidth: column.minWidth,
-                        fontWeight: "bold",
-                        backgroundColor: "#F5B488",
-                      }}
-                    >
-                      {column.label}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => {
-                    return (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        tabIndex={-1}
-                        key={row.code}
-                      >
-                        {columns.map((column) => {
-                          if (column.id === "actions") {
-                            return (
-                              <TableCell key={column.id} align="center">
-                                
-                                <DetailsModal/>
-                                <EditModal/>
-                                <DeleteModal/>
-                                
-                              </TableCell>
-                            );
-                          }
+      {allProducts.length ? (
+        <>
+          <h1 className="product-title">Products:</h1>
+          <div className="table-container">
+            <Paper
+              sx={{
+                width: "100%",
+                overflow: "hidden",
+                marginTop: "20px",
+                borderRadius: "15px",
+              }}
+            >
+              <TableContainer sx={{ maxHeight: 440 }}>
+                <Table stickyHeader aria-label="sticky table">
+                  <TableHead>
+                    <TableRow>
+                      {columns.map((column) => (
+                        <TableCell
+                          key={column.id}
+                          align={column.align}
+                          style={{
+                            minWidth: column.minWidth,
+                            fontWeight: "bold",
+                            backgroundColor: "#F5B488",
+                          }}
+                        >
+                          {column.label}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {rows
+                      .slice(
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage
+                      )
+                      .map((row) => {
+                        return (
+                          <TableRow
+                            hover
+                            role="checkbox"
+                            tabIndex={-1}
+                            key={row.code}
+                          >
+                            {columns.map((column) => {
+                              /*
+                              if (column.id === "actions") {
+                                return (
+                                  <TableCell key={column.id} align="center">
+                                    <DetailsModal />
+                                    <EditModal />
+                                    <DeleteModal />
+                                  </TableCell>
+                                );
+                              }
+                                */
 
-                          const value = row[column.id];
-                          return (
-                            <TableCell key={column.id} align={column.align}>
-                              {column.format && typeof value === "number"
-                                ? column.format(value)
-                                : value}
-                            </TableCell>
-                          );
-                        })}
-                      </TableRow>
-                    );
-                  })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            rowsPerPageOptions={[10, 25, 100]}
-            component="div"
-            count={rows.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </Paper>
-      </div>
+                              const value = row[column.id];
+                              return (
+                                <TableCell key={column.id} align={column.align}>
+                                  {column.format && typeof value === "number"
+                                    ? column.format(value)
+                                    : value}
+                                </TableCell>
+                              );
+                            })}
+                          </TableRow>
+                        );
+                      })}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <TablePagination
+                rowsPerPageOptions={[10, 25, 100]}
+                component="div"
+                count={rows.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+              />
+            </Paper>
+          </div>
+        </>
+      ) : (
+        <ErrorBox message="No Products Found!" />
+      )}
     </>
   );
-};
+}
 
 export default ProductsTable;
